@@ -15,13 +15,13 @@ services:
       - returnpudo-net
 
   backend:
-    image: admin/returnpudo-backend:latest
+    image: admin/backend:latest1
     container_name: returnpudo-backend
     restart: unless-stopped
     depends_on:
       - db
     environment:
-      DB_URL: jdbc:postgresql://db:5432/locationdb
+      DB_URL: jdbc:postgresql://db:5432/postgres
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
     ports:
