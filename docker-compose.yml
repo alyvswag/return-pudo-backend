@@ -15,7 +15,7 @@ services:
       - returnpudo-net
 
   backend:
-    image: sizinistifadeci/returnpudo-backend:latest
+    image: admin/returnpudo-backend:latest
     container_name: returnpudo-backend
     restart: unless-stopped
     depends_on:
