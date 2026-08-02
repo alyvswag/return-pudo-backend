@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: postgres-db-17
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - location-postgres-data:/var/lib/postgresql/data
+    networks:
+      - returnpudo-net
+
+  backend:
+    image: sizinistifadeci/returnpudo-backend:latest
+    container_name: returnpudo-backend
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/locationdb
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8080:8080"
+    networks:
+      - returnpudo-net
+
+volumes:
+  location-postgres-data:
+
+networks:
+  returnpudo-net:
+    driver: bridge
